@@ -21,3 +21,59 @@ jobRoleList.addEventListener('change', e =>
 }
 )
 
+const shirtDesign = document.querySelector('#design');
+const shirtColors = document.querySelector('#color');
+const colorOptions = shirtColors.children;
+shirtColors.disabled = true;
+for(let i = 1; i<colorOptions.length; i++){
+    colorOptions[i].disabled = true;
+    colorOptions[i].style.display = 'none';
+}
+
+
+function showDesignColors(design){
+    shirtColors.disabled = false;
+    if(design === "js puns"){
+        for(let i = 1; i<colorOptions.length; i++){
+            colorOptions[i].disabled = false;
+            if(colorOptions[i].getAttribute('data-theme') === 'js puns')
+            colorOptions[i].style.display = 'initial';
+        }
+    }else{
+        for(let i = 1; i<colorOptions.length; i++){
+            if(colorOptions[i].getAttribute('data-theme') === 'heart js')
+            colorOptions[i].style.display = 'initial';
+        }
+    }
+    return colorOptions;
+}
+
+function hideOtherDesignColors(design){
+    if(design === "js puns"){
+        for(let i = 1; i<colorOptions.length; i++){
+            if(colorOptions[i].getAttribute('data-theme') === 'heart js')
+            colorOptions[i].style.display = 'none';
+        }
+    }else{
+        for(let i = 1; i<colorOptions.length; i++){
+            if(colorOptions[i].getAttribute('data-theme') === 'js puns')
+            colorOptions[i].style.display = 'none';
+        }
+    }
+    return colorOptions;
+}
+
+shirtDesign.addEventListener("change", e => {
+    const designInput = e.target.value;
+    colorOptions[0].hidden = true;
+    if(designInput === "js puns"){
+        showDesignColors(designInput);
+        hideOtherDesignColors(designInput)
+    }else{
+        showDesignColors(designInput);
+        hideOtherDesignColors(designInput);
+    }
+})
+
+
+console.log(colorOptions[0]);
