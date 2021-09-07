@@ -33,29 +33,38 @@ for(let i = 1; i<colorOptions.length; i++){
 
 function showDesignColors(design){
     shirtColors.disabled = false;
-    if(design === "js puns"){
-        for(let i = 1; i<colorOptions.length; i++){
+    /*itirates through all the options and displays 
+      them according to the theme chosen.*/
+    for(let i = 1; i<colorOptions.length; i++)
+    {
+        if(design === "js puns")
+        {
             colorOptions[i].disabled = false;
             if(colorOptions[i].getAttribute('data-theme') === 'js puns')
             colorOptions[i].style.display = 'initial';
-        }
-    }else{
-        for(let i = 1; i<colorOptions.length; i++){
+            colorOptions[i].setAttribute('selected', "true");
+        }   
+        else
+        {
             if(colorOptions[i].getAttribute('data-theme') === 'heart js')
             colorOptions[i].style.display = 'initial';
+            colorOptions[i].setAttribute('selected', "true");
         }
     }
     return colorOptions;
 }
 
+/*itirates through all the options and hides 
+  the options that should not be showing according to the theme chosen.*/
 function hideOtherDesignColors(design){
-    if(design === "js puns"){
-        for(let i = 1; i<colorOptions.length; i++){
+    for(let i = 1; i<colorOptions.length; i++)
+    {
+        if(design === "js puns")
+        {
             if(colorOptions[i].getAttribute('data-theme') === 'heart js')
             colorOptions[i].style.display = 'none';
         }
-    }else{
-        for(let i = 1; i<colorOptions.length; i++){
+    else{
             if(colorOptions[i].getAttribute('data-theme') === 'js puns')
             colorOptions[i].style.display = 'none';
         }
@@ -63,17 +72,18 @@ function hideOtherDesignColors(design){
     return colorOptions;
 }
 
+
 shirtDesign.addEventListener("change", e => {
     const designInput = e.target.value;
-    colorOptions[0].hidden = true;
-    if(designInput === "js puns"){
+    if(designInput === "js puns")
+    {
         showDesignColors(designInput);
         hideOtherDesignColors(designInput)
     }else{
         showDesignColors(designInput);
         hideOtherDesignColors(designInput);
+        }
     }
-})
+)
 
 
-console.log(colorOptions[0]);
