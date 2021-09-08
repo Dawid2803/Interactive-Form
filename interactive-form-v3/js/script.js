@@ -25,63 +25,71 @@ const shirtDesign = document.querySelector('#design');
 const shirtColors = document.querySelector('#color');
 const colorOptions = shirtColors.children;
 shirtColors.disabled = true;
-for(let i = 1; i<colorOptions.length; i++){
-    colorOptions[i].disabled = true;
-    colorOptions[i].style.display = 'none';
-}
+// for(let i = 1; i<colorOptions.length; i++){
+    // colorOptions[i].disabled = true;
+    // colorOptions[i].style.display = 'none';
+//}
 
 
-function showDesignColors(design){
-    shirtColors.disabled = false;
-    /*itirates through all the options and displays 
-      them according to the theme chosen.*/
-    for(let i = 1; i<colorOptions.length; i++)
-    {
-        if(design === "js puns")
-        {
-            colorOptions[i].disabled = false;
-            if(colorOptions[i].getAttribute('data-theme') === 'js puns')
-            colorOptions[i].style.display = 'initial';
-            colorOptions[i].setAttribute('selected', "true");
-        }   
-        else
-        {
-            if(colorOptions[i].getAttribute('data-theme') === 'heart js')
-            colorOptions[i].style.display = 'initial';
-            colorOptions[i].setAttribute('selected', "true");
-        }
-    }
-    return colorOptions;
-}
+// function showDesignColors(design){
+//     shirtColors.disabled = false;
+//     /*itirates through all the options and displays 
+//       them according to the theme chosen.*/
+//     for(let i = 1; i<colorOptions.length; i++)
+//     {
+//         if(design === "js puns")
+//         {
+//             colorOptions[i].disabled = false;
+//             if(colorOptions[i].getAttribute('data-theme') === 'js puns')
+//             colorOptions[i].style.display = 'initial';
+//             colorOptions[i].setAttribute('selected', "true");
+//         }   
+//         else
+//         {
+//             if(colorOptions[i].getAttribute('data-theme') === 'heart js')
+//             colorOptions[i].style.display = 'initial';
+//             colorOptions[i].setAttribute('selected', "true");
+//         }
+//     }
+//     return colorOptions;
+// }
 
 /*itirates through all the options and hides 
   the options that should not be showing according to the theme chosen.*/
-function hideOtherDesignColors(design){
-    for(let i = 1; i<colorOptions.length; i++)
-    {
-        if(design === "js puns")
-        {
-            if(colorOptions[i].getAttribute('data-theme') === 'heart js')
-            colorOptions[i].style.display = 'none';
-        }
-    else{
-            if(colorOptions[i].getAttribute('data-theme') === 'js puns')
-            colorOptions[i].style.display = 'none';
-        }
-    }
-    return colorOptions;
-}
+// function hideOtherDesignColors(design){
+//     for(let i = 1; i<colorOptions.length; i++)
+//     {
+//         if(design === "js puns")
+//         {
+//             if(colorOptions[i].getAttribute('data-theme') === 'heart js')
+//             colorOptions[i].style.display = 'none';
+//         }
+//     else{
+//             if(colorOptions[i].getAttribute('data-theme') === 'js puns')
+//             colorOptions[i].style.display = 'none';
+//         }
+//     }
+//     return colorOptions;
+// }
 
 
 shirtDesign.addEventListener("change", e => {
     const designInput = e.target.value;
-    if(designInput === "js puns")
-    {
-        showDesignColors(designInput);
-        hideOtherDesignColors(designInput)
-    }else{
-        showDesignColors(designInput);
-        hideOtherDesignColors(designInput);
+    shirtColors.disabled = false;
+
+    for(let i = 1; i<colorOptions.length; i++){
+        const dataTheme = colorOptions[i].getAttribute('data-theme');
+
+        if(designInput === dataTheme)
+        {
+            colorOptions[i].setAttribute('hidden', 'false')
+            colorOptions[i].setAttribute('selected', 'true')
+         
+        }else{
+            colorOptions[i].setAttribute('hidden', 'true')
+            colorOptions[i].setAttribute('selected', 'false')
+           
+            }
         }
     }
 )
