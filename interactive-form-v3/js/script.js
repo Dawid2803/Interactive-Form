@@ -84,14 +84,79 @@ shirtDesign.addEventListener("change", e => {
         {
             colorOptions[i].setAttribute('hidden', 'false')
             colorOptions[i].setAttribute('selected', 'true')
-         
         }else{
             colorOptions[i].setAttribute('hidden', 'true')
             colorOptions[i].setAttribute('selected', 'false')
-           
             }
         }
     }
 )
+//Register for Activities code block//
+const activities = document.querySelector('#activities');
+const totalCostFinal = document.querySelector('#activities-cost');
+let totalCost = 0;
+
+
+activities.addEventListener('change', e => {
+    //insures that the data-cost attribute is valid before adding the totalCosts//
+    if(e.target.getAttribute('data-cost') !== ''){
+        const dataCost = +e.target.getAttribute('data-cost');
+        /*If target is checked, adds the checked items value to the total costs
+            if checked is false subtracks the item value from total cost */
+        if(e.target.checked === true)
+            {
+            totalCost += dataCost; 
+            }
+        else{
+            totalCost -= dataCost;
+            }
+            //shows the current value of totalCost as a value for the user//
+        totalCostFinal.innerHTML = `Total: $${totalCost}`;
+        }
+    }
+)
+
+//Payment info code block
+/*sets creditCard as the initial selected item and hides
+  the other payment methods until selected*/
+const payment = document.querySelector('#payment');
+const paymentMethods = payment.children;
+paymentMethods[1].setAttribute('selected', 'true');
+const creditCard = document.querySelector('#credit-card');
+const paypal = document.querySelector('#paypal');
+const bitcoin = document.querySelector('#bitcoin');
+paypal.style.display = 'none';
+bitcoin.style.display= 'none';
+
+payment.addEventListener('change', e=>{
+    /*if target is selected as payment method, the selected target's
+    payment info is displayed and the other options are hidden*/
+    if(e.target.value === 'paypal'){
+        paypal.style.display = 'inline-block';
+        creditCard.style.display = "none"
+        bitcoin.style.display = 'none';
+    }
+    else if(e.target.value === 'bitcoin'){
+        bitcoin.style.display = 'inline-block';
+        paypal.style.display = 'none';
+        creditCard.style.display = "none"
+        }
+    else{
+        creditCard.style.display = "initial"
+        paypal.style.display = 'none';
+        bitcoin.style.display = 'none';
+        }
+    }
+)
+
+const form = document.querySelector('form');
+
+function validationHelper(requiredFields){
+
+}
+
+form.addEventListener('submit', e=>{
+
+})
 
 
