@@ -21,76 +21,36 @@ jobRoleList.addEventListener('change', e =>
 }
 )
 
+/*pseudocode for color selector
+    redisign code from start
+    start by hiding all colors,
+    itirate though all options;
+    if option = data-theme, display option;
+    if option != data-theme, display none;*/
 const shirtDesign = document.querySelector('#design');
 const shirtColors = document.querySelector('#color');
 const colorOptions = shirtColors.children;
 shirtColors.disabled = true;
-// for(let i = 1; i<colorOptions.length; i++){
-    // colorOptions[i].disabled = true;
-    // colorOptions[i].style.display = 'none';
-//}
+for(let i = 0; i<colorOptions.length; i++){
+    colorOptions[i].hidden = true;
+}
 
-
-// function showDesignColors(design){
-//     shirtColors.disabled = false;
-//     /*itirates through all the options and displays 
-//       them according to the theme chosen.*/
-//     for(let i = 1; i<colorOptions.length; i++)
-//     {
-//         if(design === "js puns")
-//         {
-//             colorOptions[i].disabled = false;
-//             if(colorOptions[i].getAttribute('data-theme') === 'js puns')
-//             colorOptions[i].style.display = 'initial';
-//             colorOptions[i].setAttribute('selected', "true");
-//         }   
-//         else
-//         {
-//             if(colorOptions[i].getAttribute('data-theme') === 'heart js')
-//             colorOptions[i].style.display = 'initial';
-//             colorOptions[i].setAttribute('selected', "true");
-//         }
-//     }
-//     return colorOptions;
-// }
-
-/*itirates through all the options and hides 
-  the options that should not be showing according to the theme chosen.*/
-// function hideOtherDesignColors(design){
-//     for(let i = 1; i<colorOptions.length; i++)
-//     {
-//         if(design === "js puns")
-//         {
-//             if(colorOptions[i].getAttribute('data-theme') === 'heart js')
-//             colorOptions[i].style.display = 'none';
-//         }
-//     else{
-//             if(colorOptions[i].getAttribute('data-theme') === 'js puns')
-//             colorOptions[i].style.display = 'none';
-//         }
-//     }
-//     return colorOptions;
-// }
-
-
-shirtDesign.addEventListener("change", e => {
-    const designInput = e.target.value;
+shirtDesign.addEventListener('change', e=>{
     shirtColors.disabled = false;
-
-    for(let i = 1; i<colorOptions.length; i++){
+    for(let i = 0; i<colorOptions.length; i++){
+        const designValue = e.target.value;
         const dataTheme = colorOptions[i].getAttribute('data-theme');
-
-        if(designInput === dataTheme)
-        {
-            colorOptions[i].setAttribute('hidden', 'false')
-            colorOptions[i].setAttribute('selected', 'true')
-        }else{
-            colorOptions[i].setAttribute('hidden', 'true')
-            colorOptions[i].setAttribute('selected', 'false')
-            }
+        if(designValue === dataTheme){
+            colorOptions[i].hidden = false;
+            colorOptions[i].setAttribute('selected', 'true');
+            
+        }else if(designValue !== dataTheme){
+            colorOptions[i].hidden = true;
         }
     }
-)
+})
+
+
 //Register for Activities code block//
 const activities = document.querySelector('#activities');
 const totalCostFinal = document.querySelector('#activities-cost');
@@ -149,14 +109,27 @@ payment.addEventListener('change', e=>{
     }
 )
 
+
+/*pseudocode for form validation
+    create helper functions for validating the user inputs for name,email
+    , activities and credit card details if chosen as payment method.
+    create event listener function.
+    create addeventlistener for form and use helper functions to determine
+    true of false values for the items validated, if any required
+    items are returned false, do not accept form, else accept form.  */
+
 const form = document.querySelector('form');
+const nameHint = document.querySelector('#name-hint');
 
-function validationHelper(requiredFields){
-
+function nameValidation(name){
+    return /\w/.test(name);
 }
 
 form.addEventListener('submit', e=>{
-
+    const validName = nameValidation(userName);
+    if(validName === false){
+        nameHint.style.display = 'inline';
+    }
 })
 
 
