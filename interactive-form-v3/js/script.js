@@ -22,7 +22,6 @@ jobRoleList.addEventListener('change', e =>
 )
 
 /*pseudocode for color selector
-    redisign code from start
     start by hiding all colors,
     itirate though all options;
     if option = data-theme, display option;
@@ -30,9 +29,11 @@ jobRoleList.addEventListener('change', e =>
 const shirtDesign = document.querySelector('#design');
 const shirtColors = document.querySelector('#color');
 const colorOptions = shirtColors.children;
+
 shirtColors.disabled = true;
 for(let i = 0; i<colorOptions.length; i++){
     colorOptions[i].hidden = true;
+
 }
 
 shirtDesign.addEventListener('change', e=>{
@@ -46,7 +47,9 @@ shirtDesign.addEventListener('change', e=>{
             
         }else if(designValue !== dataTheme){
             colorOptions[i].hidden = true;
+            colorOptions[i].removeAttribute('selected');
         }
+       
     }
 })
 
@@ -64,7 +67,7 @@ activities.addEventListener('change', e => {
         const dataCost = +e.target.getAttribute('data-cost');
         /*If target is checked, adds the checked items value to the total costs
             if checked is false subtracks the item value from total cost */
-        if(e.target.checked === true)
+        if(e.target.checked)
             {
             totalCost += dataCost; 
             }
@@ -166,37 +169,84 @@ function cvvValidation(){
     return isCvvValid;
 }
 
+function addNotValidClass(element){
+    element.style.display = 'initial';
+    element.parentElement.classList.add('not-valid');
+    element.parentElement.classList.remove('valid');
+}
+
+function removeNotValidClass(element){
+    element.style.display = 'none';
+    element.parentElement.classList.add('valid');
+    element.parentElement.classList.remove('not-valid');
+}
 
 form.addEventListener('submit', e=>{
     if(nameValidation() === false){
         e.preventDefault();
-        nameHint.style.display = 'initial';
+        addNotValidClass(nameHint);
+    }else{
+        removeNotValidClass(nameHint);
     }
+
     if(emailValidation() === false){
         e.preventDefault();
-        emailHint.style.display = 'initial';
+        addNotValidClass(emailHint);
+    }else{
+        removeNotValidClass(emailHint);
     }
+
     if(activitiesValidation() === false){
         e.preventDefault();
-        activitiesHint.style.display = 'initial';
+       addNotValidClass(activitiesHint);
+    }else{
+       removeNotValidClass(activitiesHint);
     }
+
 //checks to see if creditCard was chosen as payment option(paymentMethod[1])//
 //before running the validation of the credit card details//
     if(paymentMethods[1].getAttribute('selected') === 'true'){
         if(creditCardValidation() === false){
             e.preventDefault();
-            ccHint.style.display = 'initial'
+            addNotValidClass(ccHint);
+        }else{
+            removeNotValidClass(ccHint);
         }
         if(zipValidation() === false){
             e.preventDefault();
-            zipHint.style.display = 'initial'
+            addNotValidClass(zipHint);
+        }else{
+            removeNotValidClass(zipHint);
         }
         if(cvvValidation() === false){
             e.preventDefault();
-            cvvHint.style.display = 'initial'
+            addNotValidClass(cvvHint);
+        }else{
+            removeNotValidClass(cvvHint);
         }
     }
 
 })
+
+
+
+/*adds the focus class for accessibility purposes,
+    the class makes it easier to see if you are tabbing
+    over an activity.*/
+
+const activitiesInput = activities.querySelectorAll('input[type=checkbox]');
+
+for(let i = 0; i < activitiesInput.length; i++){
+    activitiesInput[i].addEventListener('focus', ()=>{
+        activitiesInput[i].parentElement.classList.add('focus');
+    })
+    activitiesInput[i].addEventListener('blur', ()=>{
+        activitiesInput[i].parentElement.classList.remove('focus');
+    })
+}
+
+
+
+
 
 
