@@ -155,7 +155,7 @@ function activitiesValidation(){
 
 function creditCardValidation(){
     const CardNumberValue = document.querySelector('#cc-num').value;
-    const isCardNumberValid = /^\d{13,15}$/.test(CardNumberValue);
+    const isCardNumberValid = /^\d{13,16}$/.test(CardNumberValue);
     return isCardNumberValid; 
 }
 function zipValidation(){
